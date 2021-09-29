@@ -1,24 +1,16 @@
-var express = require('express');
-var app = express();
-var cors = require('cors');
+require('dotenv').config();
+const express = require('express');
+const cors = require('cors');
+const rutas = require('./routes/rutas');
+
+const app = express();
+const port = process.env.port;
+
+const ruta = '/api';
 
 app.use(cors());
-
-var  usuarios = [{
-    nombre : 'Rodrigo',
-    apellido : 'Contreras'
-},{
-    nombre : 'Fernando ',
-    apellido : 'Alonso'
-},{
-    nombre : 'Cristiano',
-    apellido : 'Ronaldo'
-}, ];
-
-app.get('/usuarios', function(req, res){
-    res.send(usuarios);
-});
-
-app.listen(8889, function(){
-    console.log('se levanto servidor');
+app.use(express.json());
+app.use(ruta, rutas);
+app.listen(port,()=>{
+    console.log('ejecutando servidor en puerto 8889');
 });
